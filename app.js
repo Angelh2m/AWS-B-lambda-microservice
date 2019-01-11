@@ -6,10 +6,10 @@ const mongoose = require("mongoose");
 var bodyParser = require('body-parser')
 const userRegistration = require("./routes/userRegistration");
 const postComment = require("./routes/postComment");
-const { MONGOURL } = require('./config');
+// const { MONGOURL } = require('./config');
 
 mongoose
-    .connect(MONGOURL, { useNewUrlParser: true })
+    .connect(process.env.MONGO, { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => err);
 
