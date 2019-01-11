@@ -15,8 +15,9 @@ router.post('/all', async (req, res) => {
         .find({ post: req.body.location })
         .then(post => {
             if (post) {
-                res.json({
-                    post
+                res.status.json({
+                    post,
+                    loc: req.body.location
                 })
             }
         }).catch(() => { console.log('Error when trying to filter dates') });
