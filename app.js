@@ -3,7 +3,7 @@ const app = express();
 
 const cors = require("cors");
 const mongoose = require("mongoose");
-
+var bodyParser = require('body-parser')
 const userRegistration = require("./routes/userRegistration");
 const postComment = require("./routes/postComment");
 const { MONGOURL } = require('./config');
@@ -13,7 +13,13 @@ mongoose
     .then(() => console.log('MongoDB Connected'))
     .catch(err => err);
 
-app.use(express.urlencoded({ extended: true }));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Credentials", true);
@@ -36,9 +42,10 @@ app.use('/api/register/', userRegistration);
 app.use('/api/comments/', postComment);
 
 
-// const port = process.env.PORT || 6000;
-// app.listen(port, () => {
-//     console.log('Server Running');
-// });
+const port = process.env.PORT || 6000;
+app.listen(port, () => {
+    console.log('Server Running');
+});
 
-module.exports = app // export your app so aws-serverless-express can use it
+// module.exports = app 
+// export your app so aws-serverless-express can use it
