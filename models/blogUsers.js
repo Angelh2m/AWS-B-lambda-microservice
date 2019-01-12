@@ -1,9 +1,8 @@
-'use strict';
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const Schema = mongoose.Schema;
 
 //schema
-const BlogUsers = mongoose.Schema({
+const BlogUser = new Schema({
     socialID: { type: String, unique: true },
     firstName: String,
     lastName: String,
@@ -12,4 +11,6 @@ const BlogUsers = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('BlogUsers', BlogUsers);;
+module.exports = {
+    BlogUser: mongoose.model('blogUsers', BlogUser)
+}

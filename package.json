@@ -4,7 +4,7 @@
     "description": "Example application for running a Node Express app on AWS Lambda using Amazon API Gateway.",
     "main": "lambda.js",
     "scripts": {
-        "deploy": "git push heroku master",
+        "deploy": "git push -f heroku master",
         "update": "claudia update",
         "start": "node app.js",
         "generate-proxy": "claudia generate-serverless-express-proxy --express-module app",
@@ -16,6 +16,7 @@
         "body-parser": "^1.18.3",
         "cors": "^2.8.5",
         "express": "^4.16.4",
+        "express-async-handler": "^1.1.4",
         "moment": "^2.23.0",
         "mongoose": "^5.4.2",
         "serverless-http": "^1.8.0",

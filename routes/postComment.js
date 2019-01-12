@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const PostComment = require('../models/PostComment.model');
-const BlogUsers = require('../models/BlogUsers.model');
+const BlogUsers = require('../models/blogUsers');
 const moment = require('moment');
 
 // ENDPOINT: http://localhost:4000/comments/all-comments
