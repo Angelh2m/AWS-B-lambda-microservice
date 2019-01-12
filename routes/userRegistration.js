@@ -27,18 +27,11 @@ router.post('/', cors(issue2options), (req, res) => {
         return res.json({ message: "THERE IS NO EMAIL", ok: false, user })
     }
 
-    // return res.json({
-    //     status: "New user Registered",
-    //     registered: true,
-    //     user
-    // })
-
     // *** Find by user by its social media ID
     BlogUser
         .findOne({ socialID: user.socialID })
         .then(resp => {
             console.log(resp);
-
 
             // *** If user does not exist register as new user
             if (resp) {

@@ -19,6 +19,7 @@ const binaryMimeTypes = [
 	'text/plain',
 	'text/text',
 	'text/xml'
-]
+];
+
 const server = awsServerlessExpress.createServer(app, null, binaryMimeTypes);
 exports.handler = (event, context) => awsServerlessExpress.proxy(server, event, context)

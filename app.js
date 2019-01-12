@@ -2,34 +2,13 @@ const express = require("express");
 const app = express();
 
 const cors = require("cors");
+
 const mongoose = require("mongoose");
 var bodyParser = require('body-parser')
 const userRegistration = require("./routes/userRegistration");
 const postComment = require("./routes/postComment");
 // const { MONGOURL } = require('./config');
 
-
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Credentials", true);
-//     res.header("Access-Control-Allow-Origin", req.headers.origin);
-//     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-//     res.header(
-//         "Access-Control-Allow-Headers",
-//         "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
-//     );
-//     if ("OPTIONS" == req.method) {
-//         res.send(200);
-//     } else {
-//         next();
-//     }
-// });
-
-// app.options("*", function (req, res, next) {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-//     res.header('Access-Control-Allow-Headers', '*');
-//     res.send(200);
-// });
 
 app.use(
     cors({
@@ -49,16 +28,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-
 // Routes
 app.use('/api/comments/', postComment);
 
 app.use('/api/register/', userRegistration);
 
-const port = process.env.PORT || 6000;
-app.listen(port, () => {
-    console.log('Server Running');
-});
+// const port = process.env.PORT || 6000;
+// app.listen(port, () => {
+//     console.log('Server Running');
+// });
 
-// module.exports = app 
+module.exports = app
 // export your app so aws-serverless-express can use it
