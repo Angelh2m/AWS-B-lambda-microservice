@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
     }
 
     if (!user.email) {
-        return res.json({ message: "THERE IS NO EMAIL", ok: false })
+        return res.json({ message: "THERE IS NO EMAIL", ok: false, user })
     }
 
     let userID = "";
