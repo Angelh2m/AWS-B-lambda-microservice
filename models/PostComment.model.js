@@ -1,8 +1,8 @@
-'use strict';
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const Schema = mongoose.Schema;
 
-const PostComments = mongoose.Schema({
+//schema
+const PostComments = new Schema({
     post: {
         type: String,
         required: true
@@ -34,4 +34,6 @@ const PostComments = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('PostComments', PostComments);;
+module.exports = {
+    PostComment: mongoose.model('PostComments', PostComments)
+}

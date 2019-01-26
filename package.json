@@ -1,28 +1,35 @@
 {
-    "name": "claudia-express",
-    "version": "1.0.0",
-    "description": "Example application for running a Node Express app on AWS Lambda using Amazon API Gateway.",
-    "main": "lambda.js",
-    "scripts": {
-        "deploy": "git push -f heroku master",
-        "update": "claudia update",
-        "start": "node app.js",
-        "generate-proxy": "claudia generate-serverless-express-proxy --express-module app",
-        "test": "docker run --rm -v \"$PWD\":/var/task lambci/lambda:nodejs8.10 lambda.handler"
-    },
-    "license": "Apache-2.0",
-    "dependencies": {
-        "aws-serverless-express": "^1.3.0",
-        "body-parser": "^1.18.3",
-        "cors": "^2.8.5",
-        "express": "^4.16.4",
-        "express-async-handler": "^1.1.4",
-        "moment": "^2.23.0",
-        "mongoose": "^5.4.2",
-        "serverless-http": "^1.8.0",
-        "serverless-offline": "^3.32.1"
-    },
-    "devDependencies": {
-        "claudia": "5.1.2"
-    }
+  "name": "doctorCare",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "deploy": "git push -f heroku master",
+    "update": "claudia update",
+    "start": "node app.js",
+    "generate-proxy": "claudia generate-serverless-express-proxy --express-module app",
+    "test": "docker run --rm -v \"$PWD\":/var/task lambci/lambda:nodejs8.10 lambda.handler"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Angelh2m/AWS-B-lambda-microservice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-serverless-express": "^1.3.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-async-handler": "^1.1.4",
+    "moment": "^2.23.0",
+    "mongoose": "^5.4.2",
+    "serverless-http": "^1.8.0",
+    "serverless-offline": "^3.32.1"
+  },
+  "bugs": {
+    "url": "https://github.com/Angelh2m/AWS-B-lambda-microservice/issues"
+  },
+  "homepage": "https://github.com/Angelh2m/AWS-B-lambda-microservice#readme"
 }
