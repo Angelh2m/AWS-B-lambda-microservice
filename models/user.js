@@ -19,10 +19,12 @@ const User = new Schema({
         date: { type: Date, default: Date.now },
         charge: String,
         type: String,
-    }]
+    }],
+    consultations: [{ type: Schema.Types.ObjectId, ref: 'Doctor_consultations' }]
+
 });
 
 
 module.exports = {
-    User: mongoose.model('dcUsers', User)
+    User: mongoose.model('Doctor_users', User)
 }

@@ -9,7 +9,8 @@ const passport = require('passport');
 // ***  ROUTES
 const user = require("./routes/user");
 const auth = require("./routes/auth");
-const postComment = require("./routes/postComment");
+const consultations = require("./routes/consultations");
+const questions = require("./routes/questions");
 
 // ***  ENV VARIABLES
 const dotenv = require('dotenv');
@@ -40,7 +41,8 @@ require('./config/passport')(passport);
 
 
 // ROUTES
-app.use('/api/', postComment);
+app.use('/api/', questions);
+app.use('/api/consultation', consultations);
 app.use('/api/user', user);
 app.use('/api/auth', auth);
 

@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const gravatar = require('gravatar');
-const { User } = require('../models/user');
+const { User } = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 router.post('/', (req, res) => {
