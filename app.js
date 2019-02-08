@@ -1,12 +1,19 @@
 const express = require("express");
 const app = express();
-
 const cors = require("cors");
 
 const mongoose = require("mongoose");
-var bodyParser = require('body-parser')
-const userRegistration = require("./routes/userRegistration");
+const bodyParser = require('body-parser');
+const passport = require('passport');
+
+// ***  ROUTES
+const user = require("./routes/user");
+const auth = require("./routes/auth");
 const postComment = require("./routes/postComment");
+
+// ***  ENV VARIABLES
+const dotenv = require('dotenv');
+dotenv.config();
 
 
 app.use(
@@ -16,7 +23,10 @@ app.use(
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     }));
 
-
+mongoose
+    .connect(`mongodb+srv://${process.env.MONGO_URL}/mydb?retryWrites=true`, { useNewUrlParser: true })
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => err);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -24,14 +34,20 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-// Routes
-app.use('/api/', postComment);
+// *** PASSPORT STRATEGIES
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
-// app.use('/api/register/', userRegistration);
+
+// ROUTES
+app.use('/api/', postComment);
+app.use('/api/user', user);
+app.use('/api/auth', auth);
+
 
 const port = process.env.PORT || 6000;
 app.listen(port, () => {
-    console.log('Server Running');
+    console.log('Server Running port http://localhost:6000/api/ ');
 });
 
 module.exports = app
