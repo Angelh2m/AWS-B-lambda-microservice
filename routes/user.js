@@ -4,6 +4,8 @@ const router = express.Router();
 const gravatar = require('gravatar');
 const { User } = require('../models/User');
 const bcrypt = require('bcryptjs');
+const { newPayment } = require('../util/payment')
+const { recurringPayment } = require('../util/payment')
 
 router.post('/', (req, res) => {
 
@@ -64,9 +66,49 @@ router.put('/', async (req, res) => {
         })
     })
 
+});
+
+
+
+
+router.put('/payment/', async (req, res) => {
+
+
+    let makePayment, payment;
+
+    if (req.body.type === "NEW_PAYMENT") {
+        makePayment = await newPayment(req.body.token, req.body.amount);
+
+        payment = {
+            brand: makePayment.source.brand,
+            last: makePayment.source.last4,
+            name: makePayment.source.name,
+            customer: makePayment.source.customer,
+            amount: makePayment.amount,
+            status: makePayment.status,
+        }
+    }
+
+    if (req.body.type === "RECURRING") {
+        makePayment = await recurringPayment(req.body.token, req.body.amount);
+        // const makePayment = await newPayment(req.body.token, "300");
+    }
+
+    // payment = {
+    //     brand: makePayment.source.brand,
+    //     last: makePayment.source.last4,
+    //     name: makePayment.source.name,
+    //     customer: makePayment.source.customer,
+    //     amount: makePayment.amount,
+    //     status: makePayment.status,
+    // }
+
+    res.json({
+        ok: true,
+        makePayment,
+        payment
+    })
 })
-
-
 
 
 module.exports = router;

@@ -17,8 +17,12 @@ const User = new Schema({
     },
     payments: [{
         date: { type: Date, default: Date.now },
-        charge: String,
-        type: String,
+        brand: String,
+        last4: String,
+        name: String,
+        customer: String,
+        ammount: String,
+        status: String,
     }],
     consultations: [{ type: Schema.Types.ObjectId, ref: 'Doctor_consultations' }]
 

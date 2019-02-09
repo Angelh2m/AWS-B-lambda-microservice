@@ -7,14 +7,23 @@ const Consultations = new Schema({
     created: { type: Date, default: Date.now },
     lastUpdate: { type: Date, default: Date.now },
     resolved: { type: Boolean, default: false },
+    // *** Get the ID of the USER who opened the ticket
+    userRef: { type: Schema.Types.ObjectId, ref: 'Doctor_users' },
 
-    ref: { type: Schema.Types.ObjectId, ref: 'Doctor_users', required: true },
     email: { type: String },
-    name: String,
+    title: String,
     question: String,
+    desiredDoctor: String,
+    response: {
+        date: { type: Date, default: Date.now },
+        message: String,
+        // *** Get the ID of the DOCTOR who responded the ticket
+        userRef: { type: Schema.Types.ObjectId, ref: 'Doctor_users' }
+    },
+    files: [{ bucketID: String }],
     reply: [
-        {
-            reference: [{ type: Schema.Types.ObjectId, ref: 'Doctor_users' }],
+        {   // *** Get the ID of the USER/DOCTOR who commented
+            userRef: [{ type: Schema.Types.ObjectId, ref: 'Doctor_users' }],
             message: { type: String },
             date: { type: Date, default: Date.now },
         }
