@@ -11,21 +11,20 @@ const Consultations = new Schema({
     userRef: { type: Schema.Types.ObjectId, ref: 'Doctor_users' },
 
     email: { type: String },
-    title: String,
+    details: String,
     question: String,
     desiredDoctor: String,
-    response: {
+    response: {// *** Get the ID of the DOCTOR who responded the ticket
         date: { type: Date, default: Date.now },
         message: String,
-        // *** Get the ID of the DOCTOR who responded the ticket
         userRef: { type: Schema.Types.ObjectId, ref: 'Doctor_users' }
     },
     files: [{ bucketID: String }],
     reply: [
         {   // *** Get the ID of the USER/DOCTOR who commented
-            userRef: [{ type: Schema.Types.ObjectId, ref: 'Doctor_users' }],
-            message: { type: String },
             date: { type: Date, default: Date.now },
+            message: { type: String },
+            userRef: { type: Schema.Types.ObjectId, ref: 'Doctor_users' },
         }
     ]
 });

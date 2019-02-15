@@ -11,6 +11,8 @@ const user = require("./routes/user");
 const auth = require("./routes/auth");
 const consultations = require("./routes/consultations");
 const questions = require("./routes/questions");
+const socialLogin = require("./routes/socialLogin");
+const recover = require("./routes/recover");
 
 // ***  ENV VARIABLES
 const dotenv = require('dotenv');
@@ -23,6 +25,13 @@ app.use(
         credentials: true,
         methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     }));
+
+app.options("/*", function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.send(200);
+});
 
 mongoose
     .connect(`mongodb+srv://${process.env.MONGO_URL}/mydb?retryWrites=true`, { useNewUrlParser: true })
@@ -42,14 +51,16 @@ require('./config/passport')(passport);
 
 // ROUTES
 app.use('/api/', questions);
+app.use('/api/recover', recover);
+app.use('/api/social-login', socialLogin);
 app.use('/api/consultation', consultations);
 app.use('/api/user', user);
 app.use('/api/auth', auth);
 
 
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
-    console.log('Server Running port http://localhost:6000/api/ ');
+    console.log('Server Running port http://localhost:4000/api/');
 });
 
 module.exports = app

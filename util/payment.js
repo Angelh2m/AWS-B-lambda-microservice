@@ -7,13 +7,12 @@ const newPayment = (token, fee) => {
         email: "angelh2m@gmail.com",
         source: token
     })
-        .then(customer =>
-            stripe.charges.create({
-                amount: fee * 100,
-                description: "Sample Charge",
-                currency: "usd",
-                customer: customer.id
-            }))
+        .then(customer => stripe.charges.create({
+            amount: fee * 100,
+            description: "Sample Charge",
+            currency: "usd",
+            customer: customer.id
+        }))
         .then(charge => charge)
         .catch(err => err)
 }

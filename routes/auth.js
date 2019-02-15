@@ -57,7 +57,7 @@ router.post('/', (req, res) => {
         }).catch(err => err)
 })
 
-// *** TEST ENDPI+OINT TO TEST LOGIN
+// *** PASSPORT TEST ENDPI+OINT TO TEST LOGIN
 router.post('/profile', passport.authenticate('jwt', { session: false }),
     (req, res) => {
         res.json({

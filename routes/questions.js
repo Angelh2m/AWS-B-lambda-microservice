@@ -1,8 +1,16 @@
 
 const express = require('express');
 const router = express.Router();
-const { QaSupport } = require('../models/qaSupport');
+const { Question } = require('../models/Questions');
 const mailer = require('../util/mailer');
+const cors = require("cors");
+
+router.all('*', cors({
+    origin: "*",
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+}))
+
 
 /* *
 *  FOR ALL GENERAL QUERIES
@@ -10,21 +18,21 @@ const mailer = require('../util/mailer');
 
 router.post('/question', async (req, res) => {
 
-    let qaSupport = new QaSupport({
+    let question = new Question({
         email: req.body.email,
         name: req.body.name,
         question: req.body.question,
     });
 
-    qaSupport.save()
+    question.save()
         .then(async (freshQuestion) => {
-            const result = await mailer(qaSupport);
-            res.status(200).json({
+            // let result = await mailer(qaSupport);
+            res.json({
                 ok: true,
                 freshQuestion,
-                result
+                // result
             })
-        })
+        }).catch(err => res.json({ ok: false }))
 })
 
 
