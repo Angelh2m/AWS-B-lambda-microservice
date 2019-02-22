@@ -10,9 +10,11 @@ const User = new Schema({
         avatar: String,
         password: String,
         paymentID: String,
-        availableCredits: [{ id: String }],
+        availableCredits: [
+            { paymentID: String }
+        ],
         userSince: { type: Date, default: Date.now },
-        locked: { type: String, default: false },
+        locked: { type: Boolean, default: false },
         googleID: String,
         facebookID: String,
     },
@@ -25,6 +27,7 @@ const User = new Schema({
         ammount: String,
         status: String,
         activeCredit: { type: String, default: true },
+        paymentID: String,
     }],
     consultations: [{ type: Schema.Types.ObjectId, ref: 'Doctor_consultations' }]
 

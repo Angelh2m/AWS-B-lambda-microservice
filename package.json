@@ -27,14 +27,14 @@
     "express-async-handler": "^1.1.4",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.4.0",
-    "moment": "^2.23.0",
-    "mongoose": "^5.4.2",
+    "moment": "^2.24.0",
+    "mongoose": "^5.4.14",
     "nodemailer": "^5.1.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "serverless-http": "^1.8.0",
-    "serverless-offline": "^3.32.1",
-    "stripe": "^6.23.1"
+    "serverless-http": "^1.9.1",
+    "serverless-offline": "^3.33.0",
+    "stripe": "^6.25.1"
   },
   "bugs": {
     "url": "https://github.com/Angelh2m/AWS-B-lambda-microservice/issues"

@@ -33,10 +33,12 @@ app.options("/*", function (req, res, next) {
     res.send(200);
 });
 
+const url = `mongodb://${process.env.MONGO_USER}@angelhm-shard-00-00-ctnpb.mongodb.net:27017,angelhm-shard-00-01-ctnpb.mongodb.net:27017,angelhm-shard-00-02-ctnpb.mongodb.net:27017/test?ssl=true&replicaSet=AngelHm-shard-0&authSource=admin&retryWrites=true`;
+
 mongoose
-    .connect(`mongodb+srv://${process.env.MONGO_URL}/mydb?retryWrites=true`, { useNewUrlParser: true })
+    .connect(url, { useNewUrlParser: true, 'useCreateIndex': true })
     .then(() => console.log('MongoDB Connected'))
-    .catch(err => err);
+    .catch(err => console.log(err));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))

@@ -13,41 +13,55 @@ const passport = require('passport');
 router.post('/', passport.authenticate('jwt', { session: false }),
     async (req, res) => {
 
+        // if (req.user.account.availableCredits.length == 0) {
+        //     return res.status(400).json({
+        //         ok: false,
+        //         message: "You don't have any consultations paid"
+        //     })
+        // }
+
         let consultation = new Consultation({
+            userRef: req.user.id,
             email: req.user.account.email,
-            name: req.body.name,
+            desiredDoctor: req.body.doctor,
             details: req.body.details,
             question: req.body.question,
-            desiredDoctor: req.body.doctor,
-            userRef: req.user.id
         });
 
 
 
-        const consultationMade = await consultation.save(consultation)
+        const consultationMade = await consultation.save()
             .then(async (succ) => {
                 // const result = await mailer("angelh2m@gmail.com");
+                // console.warn(succ);
                 return succ
             });
 
+        console.warn(req.body, req.user.id);
+
         const updateUser = await User.findOneAndUpdate(
             //*** FIND USER
-            { id: req.body.reference },
-            //*** ADD QUESTION ID
-            { $push: { consultations: { "_id": consultationMade.id } } },
+            { _id: req.user.id },
+            {
+                // Remove one paid consultation
+                $pop: { 'account.availableCredits': -1 },
+                //*** ADD QUESTION ID
+                $push: { consultations: { "_id": consultationMade._id } },
+            },
         ).then(user => user);
+
+        console.warn("SUCCESS CONSULTATION", updateUser);
 
         res.status(200).json({
             ok: true,
-            consultationMade,
-            updateUser
+            // consultationMade,
+            user: updateUser
         });
     });
 
 /* *
 *  UPDATE THE CONSULTATION DATA
 */
-
 router.put('/', passport.authenticate('jwt', { session: false }),
     async (req, res) => {
 

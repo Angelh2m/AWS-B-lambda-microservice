@@ -6,14 +6,22 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-
+/* *
+*  AUTHENTICATE ALL USERS
+*/
 router.post('/', (req, res) => {
 
     const password = req.body.password;
     const email = req.body.email ? req.body.email.toLowerCase().trim() : '';
 
+    // return res.status(200).json({
+    //     ok: 'User not found'
+    // });
     User.findOne({ 'account.email': email })
         .then((user) => {
+
+
+            console.warn(user);
 
             if (!user) {
                 return res.status(404).json({

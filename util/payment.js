@@ -1,10 +1,10 @@
 
-const newPayment = (token, fee) => {
+const newPayment = (token, fee, email) => {
 
     const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
     return stripe.customers.create({
-        email: "angelh2m@gmail.com",
+        email: email,
         source: token
     })
         .then(customer => stripe.charges.create({

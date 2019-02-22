@@ -8,7 +8,9 @@ const { newPayment } = require('../util/payment')
 const { recurringPayment } = require('../util/payment')
 const passport = require('passport');
 
-
+/* *
+*  CREATE NEW USER
+*/
 router.post('/', (req, res) => {
 
     let newUser = new User({
@@ -96,12 +98,11 @@ router.put('/', async (req, res) => {
 
 router.put('/payment/', passport.authenticate('jwt', { session: false }), async (req, res) => {
 
-
     let email = req.user.account.email;
     let makePayment, payment;
 
     if (req.body.type === "NEW_PAYMENT") {
-        makePayment = await newPayment(req.body.token, req.body.amount);
+        makePayment = await newPayment(req.body.token, req.body.amount, email);
         // Only update the user with the new payment and save recurring payment ID
         updateUser(email, makePayment)
     }
@@ -122,6 +123,7 @@ router.put('/payment/', passport.authenticate('jwt', { session: false }), async 
             customer: makePayment.source.customer,
             amount: makePayment.amount,
             status: makePayment.status,
+            paymentID: makePayment.status
         }
 
         User.findOne({ 'account.email': email })
@@ -132,7 +134,7 @@ router.put('/payment/', passport.authenticate('jwt', { session: false }), async 
                 // Save ID for recurring payments
                 if (payment) {
                     user.account.paymentID = payment.customer
-                    user.account.availableCredits.push({ id: makePayment.amount })
+                    user.account.availableCredits.push({ paymentID: makePayment.amount })
                 }
 
                 user.save().then(newUpdate => {
