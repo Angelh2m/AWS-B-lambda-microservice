@@ -60,10 +60,14 @@ app.use('/api/user', user);
 app.use('/api/auth', auth);
 
 
-const port = process.env.PORT || 4000;
-app.listen(port, () => {
-    console.log('Server Running port http://localhost:4000/api/');
-});
+// const port = process.env.PORT || 4000;
+// app.listen(port, () => {
+//     console.log('Server Running port http://localhost:4000/api/');
+// });
 
 module.exports = app
 // export your app so aws-serverless-express can use it
+
+
+
+// API https://lvtx7xas0l.execute-api.us-east-1.amazonaws.com/dev
